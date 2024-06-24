@@ -1,0 +1,6 @@
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\bin\Debug\AllatmenhelyVerseny.exe
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\bin\Debug\AllatmenhelyVerseny.pdb
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.csproj.AssemblyReference.cache
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.csproj.CoreCompileInputs.cache
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.exe
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.pdb
