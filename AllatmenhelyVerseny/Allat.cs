@@ -16,6 +16,9 @@ namespace AllatmenhelyVerseny {
             set => rajtszam = value;
         }
 
+        public string Nev => nev;
+        public int Kor => kor;
+
         private int szepsegPont = 0;
         private int viselkedesPont = 0;
 
