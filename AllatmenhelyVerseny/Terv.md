@@ -47,6 +47,9 @@ class Állat
     const név: String
     const kor: Egész
     
+    const oltásiIgazolás: Egész
+    rajtszám: Egész
+    
     viselkedésPont: Egész
     szépségPont: Egész
     összPont: Egész

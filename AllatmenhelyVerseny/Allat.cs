@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace AllatmenhelyVerseny {
     public class Allat {
@@ -6,16 +7,25 @@ namespace AllatmenhelyVerseny {
 
         private string nev;
         private int kor;
+        private int rajtszam = 0;
+        private int oltasiIgazolás;
+
+        public int Rajtszam
+        {
+            get => rajtszam;
+            set => rajtszam = value;
+        }
 
         private int szepsegPont = 0;
         private int viselkedesPont = 0;
 
         public int Pontok => szepsegPont + viselkedesPont;
 
-        public Allat(string nev, int kor)
+        public Allat(string nev, int kor, int oltasiIgazolás)
         {
             this.nev = nev;
             this.kor = kor;
+            this.oltasiIgazolás = oltasiIgazolás;
 
             if (kor > MaximumEletkor)
                 return;
@@ -27,7 +37,7 @@ namespace AllatmenhelyVerseny {
 
         public override string ToString()
         {
-            return $"Állat[név: {nev}, pontok: {Pontok}]";
+            return $"Állat[név: {nev}, pontok: {Pontok}, rajtszám: {rajtszam}]";
         }
 
         private static int PontSzorzo()
