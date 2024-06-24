@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AllatmenhelyVerseny {
     internal class Program {
-        public static string hibasAdatMsg = "Hibás adat megadva, a bevitel csak egész számokat tartalmazhat.\nPróbálja újra";
+        public static string hibasAdatMsg = "Hibás adat, az adat csak egész számokat tartalmazhat.\nPróbálja újra:";
 
         public static void Main(string[] args)
         {
+            int aktualisEv;
+            Console.WriteLine("Adja meg az aktuális évet: ");
+            while (!int.TryParse(Console.ReadLine(), out aktualisEv))
+            {
+                WriteError(hibasAdatMsg);
+            }
+
             // Maximum életkor beállítása
             Console.WriteLine("Mennyi legyen a regisztrált állatok maximum életkora");
             int maxEletkor;
@@ -25,12 +31,13 @@ namespace AllatmenhelyVerseny {
                 Console.WriteLine("Új állat neve:");
                 string nev = Console.ReadLine();
 
-                Console.WriteLine("Új állat életkora:");
-                int kor;
-                while (!int.TryParse(Console.ReadLine(), out kor))
+                Console.WriteLine("Új állat születési éve:");
+                int szulEv, kor;
+                while (!int.TryParse(Console.ReadLine(), out szulEv) || szulEv < 0 || szulEv > aktualisEv)
                 {
-                    WriteError(hibasAdatMsg);
+                    WriteError($"Hibás adat. Az adat nem tartalmazhat betűt, illetve 0-nál nagyobbnak, {aktualisEv}-nél kisebbnek kell lennie.\nPróbálja újra:");
                 }
+                kor = aktualisEv - szulEv;
 
                 Console.WriteLine("Új állat oltási igazolásának száma:");
                 int oltasiSzam;
