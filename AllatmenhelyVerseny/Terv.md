@@ -13,6 +13,13 @@ Az állatok adatainak kiíratásához írjuk meg az állat nevét és pontszám�
 Adja meg az aktuális évet és a versenyzők korhatárát (maximális kor), majd kezdje verse-nyeztetni az állatokat. Ez a következőt jelenti: egy állatnak regisztrálnia kell, majd azonnal kap egy-egy véletlenül generált pontszámot a szépségére is és a viselkedésére is. A pontozás után azonnal írja ki az állat adatait. Mindezt addig ismételje, amíg van versenyző állat. Ha már nincs, akkor írassa ki azt, hogy hány állat versenyzett, mekkora volt az átlag-pontszámuk és mekkora volt a legnagyobb pontszám.
 
 ## Kód
+### Adatfájl szerkezete
+Egy sorban: típus(macska = m, kutya = k);név;születési év;oltási igazolvány száma;van e hordozódobozuk(i/n, kutyaák esetén mindig n)
+~~~
+m;Cirmi;2012;185639;i
+k;Kefír;2017;489264;n
+~~~
+
 ### Mainloop
 ~~~
 function main() do
@@ -21,14 +28,15 @@ function main() do
 
     állatok: Állat[]
    
-    while(true) do 
-        input név, kor
-        állatok.Add(Állat(név, kor))
-        
-        out "További állat hozzáadása? [I]gen vagy [N]em
-        if(input N) do
-            break
+    file = open_file(allatok.txt)
+    while(file) do
+        line: String[] = file.read_line()
+        if(line[0] == 'k')
+            állatok.add(Kutya(line))
+        else
+            állatok.add(Macska(line))
         end
+        
     end
     
     foreach(állat in állatok) do
@@ -43,7 +51,7 @@ end
 
 ### Állat osztály
 ~~~
-class Állat
+abstract class Állat
     const név: String
     const kor: Egész
     
@@ -77,5 +85,40 @@ class Állat
         összPont = viselkedésPont + szépségPont
     end
     
+end
+~~~
+
+### Kutya osztály
+~~~
+class Kutya inherits Állat
+    viszonypont: Egész
+
+    constructor Kutya(név, kor, oltási_igazolás) do
+        Allat(név, kor, oltási_igazolás)
+        viszonypont = random()
+        
+        if viszonypont <= 0 do
+            szépségpot = 0
+            viselkedéspont = 0
+        end
+    end
+end
+~~~
+
+### Macska osztály
+~~~
+class Macska inherits Állat
+    van_doboz: Bool
+    
+    constructor Macska(név, kor, oltási_igazolás, van_doboz) do
+        Állat(név, kor, oltási_igazolás)
+        this.van_doboz = van_doboz
+        
+        if !van_doboz do 
+            szépségpont = 0
+            viselkedéspont = 0
+        end
+    end
+
 end
 ~~~

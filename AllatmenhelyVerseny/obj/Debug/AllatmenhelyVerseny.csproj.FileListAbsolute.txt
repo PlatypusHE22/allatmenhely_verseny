@@ -4,3 +4,4 @@ D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny
 D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.csproj.CoreCompileInputs.cache
 D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.exe
 D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\obj\Debug\AllatmenhelyVerseny.pdb
+D:\Suli\C#\AllatmenhelyVerseny\AllatmenhelyVerseny\bin\Debug\allatok.txt

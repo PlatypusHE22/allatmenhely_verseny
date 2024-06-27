@@ -2,13 +2,14 @@
 using System.Runtime.InteropServices;
 
 namespace AllatmenhelyVerseny {
-    public class Allat {
+    abstract public class Allat {
+        protected static Random r = new Random();
         public static int MaximumEletkor = 0;
 
-        private string nev;
-        private int kor;
-        private int rajtszam = 0;
-        private int oltasiIgazolás;
+        protected string nev;
+        protected int kor;
+        protected int rajtszam = 0;
+        protected int oltasiIgazolás;
 
         public int Rajtszam
         {
@@ -19,8 +20,8 @@ namespace AllatmenhelyVerseny {
         public string Nev => nev;
         public int Kor => kor;
 
-        private int szepsegPont = 0;
-        private int viselkedesPont = 0;
+        protected int szepsegPont = 0;
+        protected int viselkedesPont = 0;
 
         public int Pontok => szepsegPont + viselkedesPont;
 
@@ -29,21 +30,23 @@ namespace AllatmenhelyVerseny {
             this.nev = nev;
             this.kor = kor;
             this.oltasiIgazolás = oltasiIgazolás;
+        }
 
+        public virtual void Pontoz()
+        {
             if (kor > MaximumEletkor)
                 return;
 
-            Random r = new Random();
             szepsegPont = r.Next(PontSzorzo()) - kor;
             viselkedesPont = r.Next(PontSzorzo()) + kor;
         }
 
         public override string ToString()
         {
-            return $"Állat[név: {nev}, pontok: {Pontok}, rajtszám: {rajtszam}]";
+            return $"{rajtszam}, {nev}, {Pontok}";
         }
 
-        private static int PontSzorzo()
+        public static int PontSzorzo()
         {
             return MaximumEletkor;
         }

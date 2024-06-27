@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AllatmenhelyVerseny {
     internal class Program {
@@ -23,40 +24,59 @@ namespace AllatmenhelyVerseny {
             }
             Allat.MaximumEletkor = maxEletkor;
 
-            // Állatok regisztrálása
-            Console.WriteLine("Állatok hozzáadása");
+            // Állatok regisztrálása, fájl beolvasása
             List<Allat> allatok = new List<Allat>();
-            while (true)
+            using (StreamReader sr = new StreamReader("allatok.txt"))
             {
-                Console.WriteLine("Új állat neve:");
-                string nev = Console.ReadLine();
-
-                Console.WriteLine("Új állat születési éve:");
-                int szulEv, kor;
-                while (!int.TryParse(Console.ReadLine(), out szulEv) || szulEv < 0 || szulEv > aktualisEv)
+                while (!sr.EndOfStream)
                 {
-                    WriteError($"Hibás adat. Az adat nem tartalmazhat betűt, illetve 0-nál nagyobbnak, {aktualisEv}-nél kisebbnek kell lennie.\nPróbálja újra:");
+                    // Adatok beolvasása és validálása
+                    string[] line = sr.ReadLine().Split(';');
+                    string nev = line[1];
+                    int szuletesiEv;
+                    if (!int.TryParse(line[2], out szuletesiEv) || szuletesiEv > aktualisEv || szuletesiEv < 0)
+                    {
+                        WriteError($"Hiba az adatfájlban, {nev} születési éve hibás.");
+                        continue;
+                    }
+
+                    int oltasiIgazolvany;
+                    if(!int.TryParse(line[3], out oltasiIgazolvany))
+                    {
+                        WriteError($"Hiba az adatfájlban, {nev} oltási igazolványszáma hibás.");
+                        continue;
+                    }
+
+                    if (line[0] == "k") // Kutya
+                    {
+                        allatok.Add(new Kutya(nev, aktualisEv - szuletesiEv, oltasiIgazolvany));
+                    }
+                    else if (line[0] == "m") // Macska
+                    {
+                        if (line[4] != "i" && line[4] != "n")
+                        {
+                            WriteError($"Hiba az adatfájlban, {nev} van-e szállító doboza értéke hibás.");
+                            continue;
+                        }
+                        allatok.Add(new Macska(nev, aktualisEv - szuletesiEv, oltasiIgazolvany, line[4] == "i"));
+                    }
+                    else
+                    {
+                        WriteError("Hiba az adatfájlban, ismeretlen állat.");
+                    }
                 }
-                kor = aktualisEv - szulEv;
-
-                Console.WriteLine("Új állat oltási igazolásának száma:");
-                int oltasiSzam;
-                while (!int.TryParse(Console.ReadLine(), out oltasiSzam))
-                {
-                    WriteError(hibasAdatMsg);
-                }
-
-                allatok.Add(new Allat(nev, kor, oltasiSzam));
-
-                Console.WriteLine("További állatok hozzáadása? [I]gen vagy [N]em");
-                if (Console.ReadLine().ToLower()[0] == 'n')
-                    break;
             }
 
             // Rajtszámok kiosztása
             for (int i = 0; i < allatok.Count; i++)
             {
                 allatok[i].Rajtszam = i + 1;
+            }
+
+            // Állatok pontozása
+            foreach (Allat allat in allatok)
+            {
+                allat.Pontoz();
             }
 
             // Adatok kiiratása
